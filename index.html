@@ -1,86 +1,140 @@
 <!DOCTYPE html>
 <html>
-
-<head lang="en">
-  <!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
-
-  <!-- <meta http-equiv="x-ua-compatible" content="ie=edge"> -->
-
-  <title>ClimateNeRF</title>
-
-  <meta name="description" content="">
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Image-based Indoor Scene Relighting via Latent Intrinsics.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- mirror: F0%9F%AA%9E&lt -->
+  <title>💡 LumiNet</title>
 
-  <link rel="stylesheet" type="text/css" href="./utils/slick.css">
-  <link rel="stylesheet" type="text/css" href="./utils/slick-theme.css">
-  <link rel="stylesheet" href="./utils/bulma.min.css">
-  <link rel="stylesheet" href="./utils/bulma-slider.min.css">
-  <link rel="stylesheet" href="./utils/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./utils/bootstrap.min.css">
-  <link rel="stylesheet" href="./utils/font-awesome.min.css">
-  <link rel="stylesheet" href="./utils/codemirror.min.css">
-  <link rel="stylesheet" href="./utils/app.css">
-  <link rel="stylesheet" href="./utils/index.css">
-  <link rel="stylesheet" href="./utils/select.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="resources/glide.core.min.css">
-  <link rel="stylesheet" href="resources/glide.theme.min.css">
-  <link rel="stylesheet" href="resources/glide-custom.css">
-  <script src="resources/handlers.js"></script>
-  <script src="./utils/jquery.min.js"></script>
-  <script src="./utils/bootstrap.min.js"></script>
-  <script src="./utils/codemirror.min.js"></script>
-  <script src="./utils/clipboard.min.js"></script>
-  <script src="./utils/video_comparison.js"></script>
-  <script src="./utils/select.js"></script>
-  <script src="./utils/bulma-slider.min.js"></script>
-  <script src="./utils/bulma-carousel.min.js"></script>
-  <!-- <script src="./utils/app.js"></script> -->
-  <script src="./utils/index.js"></script>
-  <!-- <script src="./utils/slick.js"></script> -->
-
-  <script src="resources/glide.min.js"></script>
-  <script>
-    window.onload = function () {
-      new Glide("#dynamic-carousel", {
-        type: "carousel",
-        perView: 1.68,
-        focusAt: "center",
-        autoplay: 20000,
-        hoverpause: true
-      }).mount();
-      new Glide("#static-carousel", {
-        type: "carousel",
-        perView: 1.68,
-        focusAt: "center",
-        autoplay: 3000,
-        hoverpause: true
-      }).mount();
-      new Glide("#realtime-carousel", {
-        type: "carousel",
-        perView: 2.05,
-        focusAt: "center",
-        autoplay: 3000,
-        hoverpause: true
-      }).mount();
-    };
-  </script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RZ6PES7EKD"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
     gtag('js', new Date());
-    gtag('config', 'G-RZ6PES7EKD');
+
+    gtag('config', 'G-PYVRSFMDRL');
   </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" src="💡">
+  <!-- Glide.js CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.theme.min.css">
+
+  <!-- Glide.js JavaScript -->
+  <script src="./scripts/carousel.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="./static/js/magnify.js"></script>
+
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 1200px; /* Adjust as needed */
+      margin: 0 auto; /* Centers the container horizontally */
+      padding: 20px; /* Optional: add padding for spacing */
+      display: block; /* Ensure it behaves as a block-level element */
+  }
+  
+    .image-container {
+        position: relative;
+        display: inline-block;
+        width: 300px;
+        height: 450px;
+        overflow: hidden;
+    }
+    .image-container img {
+        width: 100%;
+        height: auto;
+    }
+    .magnifier {
+    position: absolute;
+    border: 2px solid #000;
+    border-radius: 50%;
+    cursor: none;
+    pointer-events: none;
+    width: 100px;
+    height: 100px;
+    display: none;
+    background-repeat: no-repeat;
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+  </style>
+  
 </head>
+<body>
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav> -->
+
 
 <section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">💡 LumiNET: Image-based Indoor Scene Relighting via Latent Intrinsics</h1>
+          <h1 class="title is-1 publication-title">💡 LumiNet: Latent Intrinsics Meets Diffusion Models for Indoor Scene Relighting</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://xyxingx.github.io">Xiaoyan Xing</a><sup>1</sup>,</span>
@@ -98,7 +152,7 @@
           <div class="is-size-5 publication-authors">
             <span class="author-block"><sup>1</sup>UvA-Bosch Delta Lab</span>
             <span class="author-block"><sup>2</sup>BCAI-Bosch</span>
-            <span class="author-block"><sup>3</sup>TTI-Chicago</span>
+            <span class="author-block"><sup>3</sup>Toyota Technological Institute at Chicago</span>
           </div>
 
           <div class="column has-text-centered">
@@ -114,7 +168,7 @@
                 </a>
               </span> -->
               <span class="link-block">
-                <a href="#"
+                <a href="https://arxiv.org/submit/6029638/view"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -156,43 +210,12 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <div class="columns is-centered">
-      <img src="./static/images/new_teaser_v2.svg">
+      <img src="./static/images/new_teaser_v5.svg">
     </div>
-        <!-- <p>Insert your error message here, if the PDF cannot be displayed.</p> -->
-      <!-- <embed id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/images/teaser.pdf"
-                type="application/pdf">
-      </video> -->
       <h2 class="subtitle has-text-centered">
-        <span class="dnerf">LumiNET</span> transfers complex lighting conditions between real world indoor scenes. 
+        <span class="dnerf">LumiNet</span> transfers complex lighting conditions between real world indoor scenes. 
       </h2>
-      <p class="scontent has-text-justified">
-        <span class="dnerf">LumiNET</span> transfers complex lighting 
-        conditions from a target image (a) 
-        to a source image (b), synthesizing a 
-        relit version of the source image (c) 
-        while preserving its geometry and albedo. 
-        In the top row, observe how <span class="dnerf">LumiNET</span> transforms 
-        the scene from nighttime to daytime by transferring 
-        strong directional light from the target image’s window 
-        to the source image. Key details in the relit image include 
-        ronounced gloss on the table, shadows cast onto the carpet 
-        (center left), cast shadows from the TV stand (left corner), 
-        and, most importantly, reflections of the table on the TV screen (d, e). 
-        These changes demonstrate plausible control over both direct and indirect 
-        lighting effects, such as reflections, specular highlights and shadow placement. 
-        In the bottom row, <span class="dnerf">LumiNET</span> ``knows'' about luminaires. In the relit image, 
-        two bedside lamps illuminate the scene, transforming it from a dimly lit 
-        room into a well-lit environment. This suggests that <span class="dnerf">LumiNET</span> recognizes the 
-        spatial arrangement of objects and infers where light sources should be switched 
-        on. Note how <span class="dnerf">LumiNET</span> introduces specular highlights on the left painting 
-        (see crop) and gloss in the far-right corner of the bedroom, where 
-        a previously invisible bedside lamp is now turned on. 
-        These results show LumiNet's ability to handle complex 
-        lighting phenomena—including direct illumination, specular highlights, 
-        cast shadows, inter-reflections and other indirect effects—while 
-        maintaining scene geometry, and albedo.
-      <p>
+ 
     </div>
   </div>
 </section>
@@ -204,520 +227,484 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
-          <p>
-            We introduce <span class="dnerf">LumiNET</span>, a novel architecture that 
-            leverages generative models and latent intrinsic representations for effective lighting transfer.
-          </p>
-          <p>
-            Given a source image and a target lighting image, <span class="dnerf">LumiNET</span> synthesizes 
-            a relit version of the source scene that captures the target's lighting.  
-            Our approach makes two key contributions: a data curation strategy to
-             enhance training efficiency for effective relighting, 
-             and a modified diffusion-based ControlNet that processes 
-             both latent intrinsic properties from the source image and 
-             latent extrinsic properties from the target image. 
-             We further improve lighting transfer through a learned adaptor (MLP) that injects the target's latent extrinsic properties via cross-attention and fine-tuning. 
-          </p>
-          <p>
-            Unlike traditional ControlNet, which generates images with conditional maps from a single scene, 
-            <span class="dnerf">LumiNET</span> processes latent representations 
-            from two different images - preserving geometry and albedo from the 
-            source while transferring lighting characteristics from the target. 
-            Experiments demonstrate that our method successfully transfers complex lighting phenomena including specular highlights and indirect illumination across scenes with varying spatial layouts and materials, outperforming existing approaches on challenging indoor scenes using only images as input.
+          <p>We introduce LumiNet, a novel architecture that leverages generative models and latent intrinsic representations for effective lighting transfer. </p>
+          
+          <p>Given a source image and a target lighting image, LumiNet synthesizes a relit version of the source scene that captures the target's lighting.  
+            Our approach makes two key contributions: a data curation strategy from the StyleGAN-based relighting model for our training, and a modified diffusion-based ControlNet that processes both latent intrinsic properties from the source image and latent extrinsic properties from the target image. We further improve lighting transfer through a learned adaptor (MLP) that injects the target's latent extrinsic properties via cross-attention and fine-tuning. </p>
+
+          <p>Unlike traditional ControlNet, which generates images with conditional maps from a single scene, LumiNet processes latent representations from two different images - preserving geometry and albedo from the source while transferring lighting characteristics from the target.
+             Experiments demonstrate that our method successfully transfers complex lighting phenomena including specular highlights and indirect illumination across scenes with varying spatial layouts and materials, outperforming existing approaches on challenging indoor scenes using only images as input.</p>
           </p>
         </div>
       </div>
     </div>
+
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+            <h2 class="title is-3">Lighting Transfer Results</h2>
+            <div id="image-carousel" class="glide">
+                <div class="glide__track" data-glide-el="track">
+                    <ul class="glide__slides">
+                        <!-- Pair 1 -->
+                        <!-- Pair 1 -->
+                      <li class="glide__slide">
+                        <div class="columns is-centered">
+                            <div class="image-container" id="image1">
+                                <img src="./static/images/source1.png" alt="Source image 1">
+                                <div class="magnifier"></div>
+                            </div>
+                            <div class="image-container" id="image2">
+                                <img src="./static/images/relight1.png" alt="Relit image 1">
+                                <div class="magnifier"></div>
+                            </div>
+                        </div>
+                      </li>
+                      <!-- Pair 2 -->
+                      <li class="glide__slide">
+                        <div class="columns is-centered">
+                            <div class="image-container" id="image3">
+                                <img src="./static/images/source2.png" alt="Source image 2">
+                                <div class="magnifier"></div>
+                            </div>
+                            <div class="image-container" id="image4">
+                                <img src="./static/images/relit2.png" alt="Relit image 2">
+                                <div class="magnifier"></div>
+                            </div>
+                        </div>
+                      </li>
+                      <li class="glide__slide">
+                        <div class="columns is-centered">
+                            <div class="image-container" id="image5">
+                                <img src="./static/images/source3.png" alt="Source image 2">
+                                <div class="magnifier"></div>
+                            </div>
+                            <div class="image-container" id="image6">
+                                <img src="./static/images/relit3.png" alt="Relit image 2">
+                                <div class="magnifier"></div>
+                            </div>
+                        </div>
+                      </li>
+                      <li class="glide__slide">
+                        <div class="columns is-centered">
+                            <div class="image-container" id="image7">
+                                <img src="./static/images/source4.png" alt="Source image 2">
+                                <div class="magnifier"></div>
+                            </div>
+                            <div class="image-container" id="image8">
+                                <img src="./static/images/relit4.png" alt="Relit image 2">
+                                <div class="magnifier"></div>
+                            </div>
+                        </div>
+                      </li>
+                        <!-- Add more pairs as needed -->
+                    </ul>
+                </div>
+                <!-- Navigation controls -->
+                <div class="glide__arrows" data-glide-el="controls">
+                    <button class="glide__arrow glide__arrow--left" data-glide-dir="<">◀</button>
+                    <button class="glide__arrow glide__arrow--right" data-glide-dir=">">▶</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          // Initialize the carousel
+          const glide = new Glide('#image-carousel', {
+              type: 'carousel',
+              perView: 1,
+              focusAt: 'center',
+              autoplay: false,
+              hoverpause: true
+          });
+  
+          // Function to reinitialize magnify for the active slide
+          function reinitializeMagnify() {
+              // Find the currently active slide
+              const activeSlide = document.querySelector('.glide__slide--active');
+              if (!activeSlide) {
+                  console.error('No active slide found.');
+                  return;
+              }
+  
+              // Find the image containers in the active slide
+              const containers = activeSlide.querySelectorAll('.image-container');
+              if (containers.length >= 2) {
+                  const container1 = containers[0];
+                  const container2 = containers[1];
+  
+                  // Get their IDs
+                  const container1Id = container1.id;
+                  const container2Id = container2.id;
+  
+                  console.log(`Reinitializing magnify for ${container1Id} and ${container2Id}`);
+  
+                  // Reinitialize magnifyLinked for these containers
+                  magnifyLinked(container1Id, container2Id, 2);
+              } else {
+                  console.error('Active slide does not contain two image containers.');
+              }
+          }
+  
+          // Reinitialize magnify on the first load
+          reinitializeMagnify();
+  
+          // Update magnify whenever the slide changes
+          glide.on('run.after', reinitializeMagnify);
+  
+          // Mount the carousel
+          glide.mount();
+      });
+  </script>
+  <h3 class="title is-5">This project page is under construction and will be updated very frequently. Stay tuned!</h3>
+    <!-- <div class="col-md-10 col-md-offset-1"> -->
+     
+    <!-- </div> -->
+    <!-- <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          new Glide('#image-carousel', {
+              type: 'carousel',
+              perView: 1,
+              focusAt: 'center',
+              autoplay: false,
+              hoverpause: true
+          }).mount();
+      });
+  </script> -->
+  
+
+    <!-- <script>
+        // Initialize magnify for each image container
+        magnify("image1", 2); // Pass container ID and zoom level
+        magnify("image2", 2);
+    </script> -->
+
+    
+  
+  
+  
     <!--/ Abstract. -->
 
     <!-- Paper video. -->
-    <div class="columns is-centered has-text-centered">
+    <!-- <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Video (Coming Soon)</h2>
-        <!-- <div class="publication-video">
+        <div class="publication-video">
           <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
                   frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div> -->
+        </div>
       </div>
-    </div>
+    </div> -->
     <!--/ Paper video. -->
   </div>
-
-  <div class="row">
-    <div class="col-md-10 col-md-offset-1">
-      <h3>
-        Lighting transfer
-      </h3>
-      <p>
-        <!-- <font size="3" color="gray">
-          * You can select different <b>weather</b> conditions on different <b>scenes</b> and compare
-          our <b>method</b> with baselines.
-          <br />
-          * <b>3D stylization</b> denotes finetuning pre-trained NGP model using <a
-            href="https://github.com/NVIDIA/FastPhotoStyle">FastPhotoStyle</a>.
-        </font> -->
-      </p>
-
-      <!-- <center>
-        <div class="video-compare-container" id="ours" style="width: 100%">
-          <video class="video" id="simulation_video" loop="" playsinline="" autoplay="" muted=""
-            poster="utils/loading.gif" src="utils/ours/flood/playground.mp4"
-            onplay="resizeAndPlay(this)">
-
-          </video>
-          <canvas class="videoMerge" id="simulation_videoMerge"></canvas>
-        </div>
-        <video class="video" id="baseline" loop="" playsinline="" autoplay="" muted=""
-          poster="utils/loading.gif" src="utils/ours/flood/family.mp4" style="width: 0%">
-        </video>
-        <h4>
-          Weather
-        </h4>
-        <ul class="nav nav-pills nav-justified" id="sim-view-ul" style="width: 60%">
-          <li role="presentation" class="active"><a href="javascript: void(0);" onclick="ChangeSim(0);">Flood</a>
-          </li>
-          <li role="presentation"><a href="javascript: void(0);" onclick="ChangeSim(1);">Snow</a></li>
-          <li role="presentation"><a href="javascript: void(0);" onclick="ChangeSim(2);">Smog</a></li>
-        </ul>
-        <h4>
-          Scene
-        </h4>
-        <ul class="nav nav-pills nav-justified" id="scene-view-ul" style="width: 60%">
-          <li role="presentation" class="active"><a href="javascript: void(0);"
-              onclick="ChangeScene(0);">Playground</a>
-          </li>
-          <li role="presentation"><a href="javascript: void(0);" onclick="ChangeScene(1);">Family</a>
-          </li>
-          <li role="presentation"><a href="javascript: void(0);" onclick="ChangeScene(2);">Truck</a>
-          </li>
-          <li role="presentation"><a href="javascript: void(0);" onclick="ChangeScene(3);">Train</a>
-          </li>
-          <li role="presentation"><a href="javascript: void(0);" onclick="ChangeScene(4);">Horse</a>
-          </li>
-          <br />
-          <li role="presentation"><a href="javascript: void(0);" onclick="ChangeScene(5);">Garden</a>
-          </li>
-          <li role="presentation"><a href="javascript: void(0);" onclick="ChangeScene(6);">KITTI360_1</a></li>
-          <li role="presentation"><a href="javascript: void(0);" onclick="ChangeScene(7);">KITTI360_2</a></li>
-          <li role="presentation"><a href="javascript: void(0);" onclick="ChangeScene(8);">KITTI360_3</a></li>
-        </ul>
-        <h4>
-          Method
-        </h4>
-        <ul class="nav nav-pills nav-justified" id="method-view-ul" style="width: 60%">
-          <li role="presentation" class="active"><a href="javascript: void(0);" onclick="ChangeMethod(0);">Ours</a>
-          </li>
-          <li role="presentation" class=""><a href="javascript: void(0);"
-              onclick="ChangeMethod(1);">Climate-GAN<sup>1</sup></a></li>
-          <li role="presentation" class=""><a href="javascript: void(0);" onclick="ChangeMethod(2);">Stable
-              Diffusion<sup>2</sup></a></li>
-          <li role="presentation" class="disabled"><a href="javascript: void(0);" onclick="">Swapping
-              Autoencoder<sup>3</sup></a></li>
-          <li role="presentation" class="disabled"><a href="javascript: void(0);" onclick="">3D
-              stylization</a></li>
-        </ul>
-      </center> -->
-    </div>
-  </div>
-
 </section>
-    
 
-    <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <h3>
-          Latent Interpolation
-        </h3>
-      </div>
-    </div>
 
-    <!-- <div class="glide" id="dynamic-carousel">
-      <div class="glide__track" data-glide-el="track">
-        <ul class="glide__slides">
-          <li class="glide__slide">
-            <video controls muted loop autoplay>
-              <source src="utils/rising/tower.mp4" type="video/mp4" />
+
+
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Visual Effects</h2>
+          <p>
+            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
+            would be impossible without nerfies since it would require going through a wall.
+          </p>
+          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/dollyzoom-stacked.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+      <div class="column">
+        <h2 class="title is-3">Matting</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p>
+              As a byproduct of our method, we can also solve the matting problem by ignoring
+              samples that fall outside of a bounding box during rendering.
+            </p>
+            <video id="matting-video" controls playsinline height="100%">
+              <source src="./static/videos/matting.mp4"
+                      type="video/mp4">
             </video>
-          </li>
-          <li class="glide__slide">
-            <video controls muted loop autoplay>
-              <source src="utils/rising/church.mp4" type="video/mp4" />
-            </video>
-          </li>
-          <li class="glide__slide">
-            <video controls muted loop autoplay>
-              <source src="utils/rising/statue.mp4" type="video/mp4" />
-            </video>
-          </li>
-          <li class="glide__slide">
-            <video controls muted loop autoplay>
-              <source src="utils/rising/venice.mp4" type="video/mp4" />
-            </video>
-          </li>
-          <li class="glide__slide">
-            <video controls muted loop autoplay>
-              <source src="utils/rising/sydney.mp4" type="video/mp4" />
-            </video>
-          </li>
-        </ul>
-      </div>
-      <div class="glide__arrows" data-glide-el="controls">
-        <span class="glide__arrow glide__arrow--left" data-glide-dir="<"><img
-            src="resources/arrow-left-circle-fill.svg" /></span>
-        <span class="glide__arrow glide__arrow--right" data-glide-dir=">"><img
-            src="resources/arrow-right-circle-fill.svg" /></span>
-      </div>
-      <div class="glide__bullets" data-glide-el="controls[nav]">
-        <span class="glide__bullet" data-glide-dir="=0"></span>
-        <span class="glide__bullet" data-glide-dir="=1"></span>
-        <span class="glide__bullet" data-glide-dir="=2"></span>
-        <span class="glide__bullet" data-glide-dir="=3"></span>
-        <span class="glide__bullet" data-glide-dir="=4"></span>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <h3>
-          Controllable rendering
-        </h3>
-
-        <div class="text-justify">
-          Our method simulates different densities of smog and distinct heights of flood and accumulated
-          snow:
-        </div>
-
-        <table width="100%">
-          <tbody>
-            <tr>
-              <td align="center" valign="top" width="33%">
-                <video id="v1" width="100%" playsinline="" autoplay="" loop="" muted=""
-                  poster="utils/loading.gif">
-                  <source src="utils/control/control_smog.mp4" type="video/mp4">
-                </video>
-              </td>
-              <td align="center" valign="top" width="33%">
-                <video id="v2" width="100%" playsinline="" autoplay="" loop="" muted=""
-                  poster="utils/loading.gif">
-                  <source src="utils/control/control_flood.mp4" type="video/mp4">
-                </video>
-              </td>
-              <td align="center" valign="top" width="33%">
-                <video id="v3" width="100%" playsinline="" autoplay="" loop="" muted=""
-                  poster="utils/loading.gif">
-                  <source src="utils/control/control_snow.mp4" type="video/mp4">
-                </video>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <h3>
-          Rendering Procedure of ClimateNeRF
-        </h3>
-        <center>
-          <img src="./utils/images/simulation.png" class="img-responsive" width="80%"
-            style="max-height: 450px;margin:auto;">
-        </center>
-
-        <div class="text-justify">
-          We first determine the position of physical entities (smog particle, snow balls, water surface)
-          with physical simulation. We can then render the
-          scene with desired effects by modeling the light transport between the physical entities and the
-          scene. More specifically, we follow
-          the volume rendering process and fuse the estimated color and density from 1) the original
-          radiance field (by querying the trained
-          instant-NGP model) and 2) the physical entities (by physically based rendering). Our rendering
-          procedure thus maintain the realism while achieving complex, yet physically plausible visual
-          effects.
-        </div>
-      </div>
-    </div> -->
-
-    <!-- <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <h3>
-          Flood Simulation
-        </h3>
-        <table width="100%">
-          <tbody>
-            <tr>
-              <td align="center" width="20%">
-                <img src="./utils/images/flood/rgb-original.png" class="img-responsive">
-              </td>
-              <td align="center" width="20%">
-                <img src="./utils/images/flood/depth.png" class="img-responsive">
-              </td>
-              <td align="center" width="20%">
-                <img src="./utils/images/flood/flat.png" class="img-responsive">
-              </td>
-              <td align="center" width="20%">
-                <img src="./utils/images/flood/wave.png" class="img-responsive">
-              </td>
-              <td align="center" width="20%">
-                <img src="./utils/images/flood/rgb-final.png" class="img-responsive">
-              </td>
-            </tr>
-            <tr>
-              <td align="center" width="20%">
-                <font size="1" color="gray">(a) Original NeRF</font>
-              </td>
-              <td align="center" width="20%">
-                <font size="1" color="gray">(b) Depth map</font>
-              </td>
-              <td align="center" width="20%">
-                <font size="1" color="gray">(c) Water surface</font>
-              </td>
-              <td align="center" width="20%">
-                <font size="1" color="gray">(d) Normal map with wave</font>
-              </td>
-              <td align="center" width="20%">
-                <font size="1" color="gray">(e) Final ClimateNeRF</font>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="text-justify">
-          We first estimate the vanishing point direction based on the original image (a) and depth (b).
-          With the vertical vanishing direction (yellow arrows painted (c)), we can insert a planar water
-          surface.
-          We use FFT based water surface simulation to produce a spatiotemporal surface normal map in (d).
-          Our ClimateNeRF renders the scene with the simulated flood through ray tracing NeRF (e).
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <h3>
-          Snow Simulation
-        </h3>
-        <table width="100%">
-          <tbody>
-            <tr>
-              <td align="center" width="20%">
-                <img src="./utils/images/snow/metaball_vis1.png" class="img-responsive">
-              </td>
-              <td align="center" width="20%">
-                <img src="./utils/images/snow/metaball_vis2.png" class="img-responsive">
-              </td>
-              <td align="center" width="20%">
-                <img src="./utils/images/snow/metaball_vis3.png" class="img-responsive">
-              </td>
-              <td align="center" width="20%">
-                <img src="./utils/images/snow/metaball_vis4.png" class="img-responsive">
-              </td>
-              <td align="center" width="20%">
-                <img src="./utils/images/snow/metaball_vis5.png" class="img-responsive">
-              </td>
-            </tr>
-            <tr>
-              <td align="center" width="20%">
-                <font size="1" color="gray">(a) Original NeRF</font>
-              </td>
-              <td align="center" width="20%">
-                <font size="1" color="gray">(b) Surface normal</font>
-              </td>
-              <td align="center" width="20%">
-                <font size="1" color="gray">(c) Metaball centers (red)</font>
-              </td>
-              <td align="center" width="20%">
-                <font size="1" color="gray">(d) Snow with diffuse model</font>
-              </td>
-              <td align="center" width="20%">
-                <font size="1" color="gray">(e) Snow with scattering</font>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="text-justify">
-          We first locate metaballs on object surfaces facing upward based on surface normal values (b).
-          With metaballs (centers painted in red), we can estimate snow's density and color with a parzen
-          window density estimator.
-          (d) and (e) show the differences between fully diffuse model and scattering approximations,
-          shadowed parts in (d) are lit in (e).
-        </div>
-      </div>
-    </div> -->
-
-    <!-- <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <h3>
-          User Study
-        </h3>
-        <div class="text-justify">
-          We perform a user study to validate our approach quantitatively. Users are asked to watch pairs
-          of
-          synthesized images or videos of the same scene and pick the
-          one with higher realism. 37 users participated in the study,
-          and in total, we collected 2664 pairs of comparisons.
-        </div>
-        <center>
-          <table width="60%">
-            <tbody>
-              <tr style="border-bottom:1px solid black">
-                <td align="center" width="15%"></td>
-                <td align="center" width="25%">
-                  <font size="3" color="black">Images</font>
-                </td>
-                <td align="center" width="65%">
-                  <font size="3" color="black">Videos</font>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <table width="60%">
-            <tbody>
-              <tr style="border-bottom:1px solid black">
-                <td align="center" width="10%">
-                  <font size="3" color="black">Smog</font>
-                </td>
-                <td align="center" width="38%">
-                  <img src="./utils/images/user/smog-images.png" class="img-responsive">
-                </td>
-                <td align="center" width="51%">
-                  <img src="./utils/images/user/smog-videos.png" class="img-responsive">
-                </td>
-              </tr>
-
-              <tr style="border-bottom:1px solid black">
-                <td align="center" width="10%">
-                  <font size="3" color="black">Flood</font>
-                </td>
-                <td align="center" width="36%">
-                  <img src="./utils/images/user/flood-images.png" class="img-responsive">
-                </td>
-                <td align="center" width="53%">
-                  <img src="./utils/images/user/flood-videos.png" class="img-responsive">
-                </td>
-              </tr>
-              <tr>
-                <td align="center" width="10%">
-                  <font size="3" color="black">Snow</font>
-                </td>
-                <td align="center" width="38%">
-                  <img src="./utils/images/user/snow-images.png" class="img-responsive">
-                </td>
-                <td align="center" width="51%">
-                  <img src="./utils/images/user/snow-videos.png" class="img-responsive">
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </center>
-        <div class="text-justify">
-          The length of bars indicates the percentage of users voting for higher realism than the
-          opponents. The green bar with the number shows our win rate against each baseline. The video
-          quality of our method significantly outperforms all baselines.
-        </div>
-      </div>
-    </div> -->
-
-    <!-- <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <h3>
-          References
-        </h3>
-        <ol>
-          <li>
-            Victor Schmidt, Alexandra Sasha Luccioni, M ́elisande Teng, Tianyu Zhang, Alexia Reynaud,
-            Sunand Raghupathi, Gautier Cosne,
-            Adrien Juraver, Vahe Vardanyan, Alex Hernandez-Garcia, Yoshua Bengio.
-            Climategan: Raising climate change awareness by generating images of floods. ICLR, 2022.
-            <a href="https://github.com/cc-ai/climategan">[code]</a>
-          </li>
-          <li>
-            Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Bj ̈orn Ommer.
-            High-resolution image synthesis with latent diffusion models. In CVPR, 2022.
-            <a href="https://github.com/CompVis/stable-diffusion">[code]</a>
-          </li>
-          <li>
-            Taesung Park, Jun-Yan Zhu, Oliver Wang, Jingwan Lu, Eli Shechtman, Alexei Efros, and Richard
-            Zhang.
-            Swapping autoencoder for deep image manipulation. NeurIPS, 2020.
-            <a href="https://github.com/taesungp/swapping-autoencoder-pytorch">[code]</a>
-          </li>
-        </ol>
-      </div>
-    </div> -->
-    <!-- <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <h3>
-          Citation
-        </h3>
-        If you find our project useful, please consider citing:
-        <br />
-
-        <div class="CodeMirror cm-s-default CodeMirror-wrap">
-          <div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 38.28px; left: 647px;">
-            <textarea autocorrect="off" autocapitalize="off" spellcheck="false"
-              style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"
-              tabindex="0"></textarea>
           </div>
-          <div class="CodeMirror-vscrollbar" cm-not-content="true">
-            <div style="min-width: 1px; height: 0px;"></div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Animation</h2>
+
+
+        <h3 class="title is-4">Interpolating states</h3>
+        <div class="content has-text-justified">
+          <p>
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+        </div>
+        <div class="columns is-vcentered interpolation-panel">
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_start.jpg"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+            <p>Start Frame</p>
           </div>
-          <div class="CodeMirror-hscrollbar" cm-not-content="true">
-            <div style="height: 100%; min-height: 1px; width: 0px;"></div>
-          </div>
-          <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
-          <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
-          <div class="CodeMirror-scroll" tabindex="-1">
-            <div class="CodeMirror-sizer"
-              style="margin-left: 0px; margin-bottom: -15px; border-right-width: 15px; min-height: 111px; padding-right: 0px; padding-bottom: 0px;">
-              <div style="position: relative; top: 0px;">
-                <div class="CodeMirror-lines">
-                  <div style="position: relative; outline: none;">
-                    <div class="CodeMirror-measure">AخA</div>
-                    <div class="CodeMirror-measure"></div>
-                    <div style="position: relative; z-index: 1;"></div>
-                    <div class="CodeMirror-cursors">
-                      <div class="CodeMirror-cursor" style="left: 647px; top: 34.28px; height: 17.1406px;">&nbsp;</div>
-                    </div>
-                    <div class="CodeMirror-code" style="">
-                      <pre
-                        class=" CodeMirror-line "><span style="padding-right: 0.1px;">@inproceedings{Li2023ClimateNeRF,</span></pre>
-                      <pre
-                        class=" CodeMirror-line "><span style="padding-right: 0.1px;"> &nbsp;  title={ClimateNeRF: Extreme Weather Synthesis in Neural Radiance Field},</span></pre>
-                      <pre
-                        class=" CodeMirror-line "><span style="padding-right: 0.1px;"> &nbsp;  author={Li, Yuan and Lin, Zhi-Hao and Forsyth, David and Huang, Jia-Bin and Wang, Shenlong},</span></pre>
-                      <pre
-                        class=" CodeMirror-line "><span style="padding-right: 0.1px;"> &nbsp;  booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},</span></pre>
-                      <pre
-                        class=" CodeMirror-line "><span style="padding-right: 0.1px;"> &nbsp;  year={2023}</span></pre>
-                      <pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">}</span></pre>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div class="column interpolation-video-column">
+            <div id="interpolation-image-wrapper">
+              Loading...
             </div>
-            <div style="position: absolute; height: 15px; width: 1px; top: 111px;"></div>
-            <div class="CodeMirror-gutters" style="display: none; height: 126px;"></div>
+            <input class="slider is-fullwidth is-large is-info"
+                   id="interpolation-slider"
+                   step="1" min="0" max="100" value="0" type="range">
+          </div>
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_end.jpg"
+                 class="interpolation-image"
+                 alt="Interpolation end reference image."/>
+            <p class="is-bold">End Frame</p>
           </div>
         </div>
+        <br/>
 
+        <h3 class="title is-4">Re-rendering the input video</h3>
+        <div class="content has-text-justified">
+          <p>
+            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
+            viewpoint such as a stabilized camera by playing back the training deformations.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 width="75%">
+            <source src="./static/videos/replay.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
       </div>
-    </div> -->
-    <!-- <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <h3>
-          Acknowledgements
-        </h3>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Related Links</h2>
 
-        The website template was borrowed from <a href="http://mgharbi.com/">Michaël Gharbi</a>, <A
-          href="https://dorverbin.github.io/refnerf/index.html">RefNeRF</a> , <A
-          href="https://nerfies.github.io/">Nerfies</A> and <A
-          href="https://hhsinping.github.io/svs/supp/visual_comparison.html">Semantic View Synthesis</a>.
+        <div class="content has-text-justified">
+          <p>
+            There's a lot of excellent work that was introduced around the same time as ours.
+          </p>
+          <p>
+            <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.
+          </p>
+          <p>
+            <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
+            both use deformation fields to model non-rigid scenes.
+          </p>
+          <p>
+            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
+          </p>
+          <p>
+            There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
+          </p>
+        </div>
+      </div>
+    </div>
 
-      </div> -->
+  </div>
+</section> -->
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{Xing2024LumiNet,
+  author    = {Xing Xiaoyan, Groh Konrad, Karaoglu Sezer, Gevers Theo , Bhattad Anand },
+  title     = {LumiNet: Latent Intrinsics Meets Diffusion Models for Indoor Scene Relighting},
+  year      = {2024},
+}</code></pre>
+  </div>
+</section>
+
+
+<!-- <footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="#" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="#">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
-</body>
-f
+</footer> -->
+<!-- <script>
+  function magnify(containerId, zoom) {
+      const container = document.getElementById(containerId);
+      const img = container.querySelector("img");
+      const magnifier = container.querySelector(".magnifier");
 
+      container.addEventListener("mousemove", function (e) {
+          magnifier.style.display = "block";
+          const { left, top, width, height } = container.getBoundingClientRect();
+          const x = e.pageX - left - window.scrollX;
+          const y = e.pageY - top - window.scrollY;
+
+          // Ensure the magnifier stays within the bounds
+          if (x < 0 || y < 0 || x > width || y > height) {
+              magnifier.style.display = "none";
+              return;
+          }
+
+          // Set magnifier position
+          magnifier.style.left = `${x - magnifier.offsetWidth / 2}px`;
+          magnifier.style.top = `${y - magnifier.offsetHeight / 2}px`;
+
+          // Zoom the image
+          const bgPosX = -(x * zoom - magnifier.offsetWidth / 2);
+          const bgPosY = -(y * zoom - magnifier.offsetHeight / 2);
+          magnifier.style.backgroundImage = `url(${img.src})`;
+          magnifier.style.backgroundSize = `${img.width * zoom}px ${img.height * zoom}px`;
+          magnifier.style.backgroundPosition = `${bgPosX}px ${bgPosY}px`;
+      });
+
+      container.addEventListener("mouseleave", function () {
+          magnifier.style.display = "none";
+      });
+  }
+
+  function magnifyLinked(container1Id, container2Id, zoom) {
+      magnify(container1Id, zoom);
+      magnify(container2Id, zoom);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+      // Initialize the carousel
+      const glide = new Glide('#image-carousel', {
+          type: 'carousel',
+          perView: 1,
+          focusAt: 'center',
+          autoplay: false,
+          hoverpause: true
+      });
+
+      // Function to reinitialize magnify for the active slide
+      function reinitializeMagnify() {
+          const activeSlide = document.querySelector('.glide__slide--active');
+          if (!activeSlide) return;
+
+          // Find the image containers in the active slide
+          const containers = activeSlide.querySelectorAll('.image-container');
+          if (containers.length >= 2) {
+              const container1 = containers[0];
+              const container2 = containers[1];
+
+              magnifyLinked(container1.id, container2.id, 2);
+          }
+      }
+
+      // Reinitialize magnify on the first load and slide change
+      glide.on('mount.after', reinitializeMagnify);
+      glide.on('run.after', reinitializeMagnify);
+
+      // Mount the carousel
+      glide.mount();
+  });
+</script>
+<script>
+  function initializeMagnify(containerId, zoom) {
+      const container = document.getElementById(containerId);
+      const img = container.querySelector("img");
+      const magnifier = container.querySelector(".magnifier");
+
+      container.addEventListener("mousemove", function (e) {
+          magnifier.style.display = "block";
+          const rect = container.getBoundingClientRect();
+          const x = e.pageX - rect.left - window.scrollX;
+          const y = e.pageY - rect.top - window.scrollY;
+
+          // Ensure magnifier stays within bounds
+          if (x < 0 || y < 0 || x > rect.width || y > rect.height) {
+              magnifier.style.display = "none";
+              return;
+          }
+
+          magnifier.style.left = `${x - magnifier.offsetWidth / 2}px`;
+          magnifier.style.top = `${y - magnifier.offsetHeight / 2}px`;
+
+          // Zoom effect
+          const bgX = -(x * zoom - magnifier.offsetWidth / 2);
+          const bgY = -(y * zoom - magnifier.offsetHeight / 2);
+          magnifier.style.backgroundImage = `url(${img.src})`;
+          magnifier.style.backgroundSize = `${img.width * zoom}px ${img.height * zoom}px`;
+          magnifier.style.backgroundPosition = `${bgX}px ${bgY}px`;
+      });
+
+      container.addEventListener("mouseleave", () => {
+          magnifier.style.display = "none";
+      });
+  }
+
+  function setupMagnifyForSlide(slide) {
+      const containers = slide.querySelectorAll('.image-container');
+      containers.forEach(container => {
+          const containerId = container.id;
+          initializeMagnify(containerId, 2); // 2x zoom
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+      const glide = new Glide('#image-carousel', {
+          type: 'carousel',
+          perView: 1,
+          focusAt: 'center',
+          autoplay: false,
+          hoverpause: true
+      });
+
+      glide.on('mount.after', () => {
+          const activeSlide = document.querySelector('.glide__slide--active');
+          setupMagnifyForSlide(activeSlide);
+      });
+
+      glide.on('run.after', () => {
+          const activeSlide = document.querySelector('.glide__slide--active');
+          setupMagnifyForSlide(activeSlide);
+      });
+
+      glide.mount();
+  });
+</script> -->
+
+
+</body>
 </html>
