@@ -160,9 +160,10 @@
     </div>
   <!-- </div> -->
       <h2 class="subtitle has-text-centered">
-        <span class="dnerf">LumiNet</span> transfers complex lighting conditions between real world indoor scenes. 
+        <span class="dnerf">LumiNet</span> transfers complex lighting conditions from a target image (a) to a source image (b),
+         synthesizing a relit version of the source image (c) while preserving its main geometry and albedo. 
       </h2>
- 
+      
     </div>
   </div>
 </section>
@@ -232,7 +233,9 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-three-fifths">
         <h2 class="title is-3">Lighting Transfer Results</h2>
-        <!-- <p></p> -->
+        <p>We present some of the relighting results here. Given a target light (top row) and a scene to be relit (second row), 
+          our method transfers complex indoor scene lighting phenomena—including direct illumination, 
+          specular highlights, cast shadows, inter-reflections, and other indirect effects—while maintaining scene geometry and albedo. (Put your mouse on the images to magnify.) </p>
         
         <!-- Dynamic Image Selection and Display Section -->
         <div>
@@ -370,6 +373,7 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Visual Comparison</h2>
+        <p> We compare <span class="dnerf">LumiNet</span> with IC-Light-v2, RGB-X, and Latent-Intrinsic. Both RGB-X and IC-Light-v2 require text prompts to achieve relighting, where we use descriptions derived from the target lighting image (including actions like turning lights on/off, lamp placement, and scene type) as text prompts.</p>
         <div id="comparison-slider" class="columns is-multiline is-centered">
           <!-- Initial batch of images will be loaded here -->
         </div>
