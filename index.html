@@ -159,10 +159,12 @@
       <img src="./static/images/new_teaser_v5.svg">
     </div>
   <!-- </div> -->
+  <div class="columns is-centered">
       <h2 class="subtitle has-text-centered">
         <span class="dnerf">LumiNet</span> transfers complex lighting conditions from a target image (a) to a source image (b),
          synthesizing a relit version of the source image (c) while preserving its main geometry and albedo. 
       </h2>
+    </div>
       
     </div>
   </div>
@@ -320,54 +322,6 @@
   </div>
 </section>
 
-
-<!-- <section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Visual Comparison</h2>
-        <div class="columns is-multiline is-centered">
-          <div class="column is-one-sixth">
-            <div class="image-box" id="box1">
-              <img src="./static/images/placeholder1.jpg" alt="Dynamic Image 1">
-              <p>Target light</p>
-            </div>
-          </div>
-          <div class="column is-one-sixth">
-            <div class="image-box" id="box1">
-              <img src="./static/images/placeholder1.jpg" alt="Dynamic Image 1">
-              <p>Original image</p>
-            </div>
-          </div>
-          <div class="column is-one-sixth">
-            <div class="image-box" id="box2">
-              <img src="./static/images/placeholder2.jpg" alt="Dynamic Image 2">
-              <p>RGB-X</p>
-            </div>
-          </div>
-          <div class="column is-one-sixth">
-            <div class="image-box" id="box2">
-              <img src="./static/images/placeholder2.jpg" alt="Dynamic Image 2">
-              <p>IC-Light-V2</p>
-            </div>
-          </div>
-          <div class="column is-one-sixth">
-            <div class="image-box" id="box2">
-              <img src="./static/images/placeholder2.jpg" alt="Dynamic Image 2">
-              <p>Latent-Intrinsic</p>
-            </div>
-          </div>
-          <div class="column is-one-sixth">
-            <div class="image-box" id="box2">
-              <img src="./static/images/placeholder2.jpg" alt="Dynamic Image 2">
-              <p>Ours</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
@@ -454,6 +408,122 @@
   });
 </script>
 
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-three-fifths">
+        <h2 class="title is-3">Image Slider with Magnifier</h2>
+        <p>Hover over the images to magnify.</p>
+        
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <div class="image-box" id="slider-box1">
+              <img src="./static/images/placeholder1.jpg" alt="Slider Image 1">
+              <p>Image 1</p>
+              <div class="magnifier" id="slider-magnifier1"></div>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="image-box" id="slider-box2">
+              <img src="./static/images/placeholder2.jpg" alt="Slider Image 2">
+              <p>Image 2</p>
+              <div class="magnifier" id="slider-magnifier2"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="prev-slide" class="button is-dark">◀ Previous</button>
+          <button id="next-slide" class="button is-dark">Next ▶</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const sliderImages = [
+      ["./static/images/source3.png", "./static/images/relit-3.gif"],
+      ["./static/images/source2.png", "./static/images/relit-2.gif"],
+      ["./static/images/source1.png", "./static/images/relit-1.gif"],
+
+
+    ];
+    let currentSlideIndex = 0;
+
+    const box1 = document.querySelector('#slider-box1 img');
+    const box2 = document.querySelector('#slider-box2 img');
+    const magnifier1 = document.querySelector('#slider-magnifier1');
+    const magnifier2 = document.querySelector('#slider-magnifier2');
+    const prevSlideButton = document.getElementById('prev-slide');
+    const nextSlideButton = document.getElementById('next-slide');
+
+    function loadSliderImages() {
+      const images = sliderImages[currentSlideIndex];
+      box1.src = images[0];
+      box2.src = images[1];
+    }
+
+    prevSlideButton.addEventListener('click', () => {
+      currentSlideIndex = (currentSlideIndex - 1 + sliderImages.length) % sliderImages.length;
+      loadSliderImages();
+    });
+
+    nextSlideButton.addEventListener('click', () => {
+      currentSlideIndex = (currentSlideIndex + 1) % sliderImages.length;
+      loadSliderImages();
+    });
+
+    function magnify(container, magnifier, img, zoom) {
+      container.addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        const x = e.pageX - rect.left - window.scrollX;
+        const y = e.pageY - rect.top - window.scrollY;
+
+        if (x < 0 || y < 0 || x > rect.width || y > rect.height) {
+          magnifier.style.display = 'none';
+          return;
+        }
+
+        magnifier.style.display = 'block';
+        magnifier.style.left = `${x - magnifier.offsetWidth / 2}px`;
+        magnifier.style.top = `${y - magnifier.offsetHeight / 2}px`;
+        magnifier.style.backgroundImage = `url(${img.src})`;
+        magnifier.style.backgroundSize = `${img.width * zoom}px ${img.height * zoom}px`;
+        magnifier.style.backgroundPosition = `-${x * zoom - magnifier.offsetWidth / 2}px -${y * zoom - magnifier.offsetHeight / 2}px`;
+
+        if (magnifier === magnifier1) {
+          magnifier2.style.display = 'block';
+          magnifier2.style.left = magnifier.style.left;
+          magnifier2.style.top = magnifier.style.top;
+          magnifier2.style.backgroundImage = `url(${box2.src})`;
+          magnifier2.style.backgroundSize = `${box2.width * zoom}px ${box2.height * zoom}px`;
+          magnifier2.style.backgroundPosition = magnifier.style.backgroundPosition;
+        } else {
+          magnifier1.style.display = 'block';
+          magnifier1.style.left = magnifier.style.left;
+          magnifier1.style.top = magnifier.style.top;
+          magnifier1.style.backgroundImage = `url(${box1.src})`;
+          magnifier1.style.backgroundSize = `${box1.width * zoom}px ${box1.height * zoom}px`;
+          magnifier1.style.backgroundPosition = magnifier.style.backgroundPosition;
+        }
+      });
+
+      container.addEventListener('mouseleave', () => {
+        magnifier.style.display = 'none';
+        magnifier1.style.display = 'none';
+        magnifier2.style.display = 'none';
+      });
+    }
+
+    magnify(document.querySelector('#slider-box1'), magnifier1, box1, 2);
+    magnify(document.querySelector('#slider-box2'), magnifier2, box2, 2);
+
+    loadSliderImages();
+  });
+</script>
 <section>
 <div class="container is-max-desktop">
   <div class="content">
