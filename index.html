@@ -38,7 +38,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.theme.min.css">
 
   <!-- Glide.js JavaScript -->
-  <script src="./scripts/carousel.js"></script>
+  <!-- <script src="./scripts/carousel.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
@@ -238,126 +238,6 @@
         </div>
       </div>
     </div>
-
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-            <h2 class="title is-3">Lighting Transfer Results</h2>
-            <div id="image-carousel" class="glide">
-                <div class="glide__track" data-glide-el="track">
-                    <ul class="glide__slides">
-                        <!-- Pair 1 -->
-                        <!-- Pair 1 -->
-                      <li class="glide__slide">
-                        <div class="columns is-centered">
-                            <div class="image-container" id="image1">
-                                <img src="./static/images/source1.png" alt="Source image 1">
-                                <div class="magnifier"></div>
-                            </div>
-                            <div class="image-container" id="image2">
-                                <img src="./static/images/relight1.png" alt="Relit image 1">
-                                <div class="magnifier"></div>
-                            </div>
-                        </div>
-                      </li>
-                      <!-- Pair 2 -->
-                      <li class="glide__slide">
-                        <div class="columns is-centered">
-                            <div class="image-container" id="image3">
-                                <img src="./static/images/source2.png" alt="Source image 2">
-                                <div class="magnifier"></div>
-                            </div>
-                            <div class="image-container" id="image4">
-                                <img src="./static/images/relit2.png" alt="Relit image 2">
-                                <div class="magnifier"></div>
-                            </div>
-                        </div>
-                      </li>
-                      <li class="glide__slide">
-                        <div class="columns is-centered">
-                            <div class="image-container" id="image5">
-                                <img src="./static/images/source3.png" alt="Source image 2">
-                                <div class="magnifier"></div>
-                            </div>
-                            <div class="image-container" id="image6">
-                                <img src="./static/images/relit3.png" alt="Relit image 2">
-                                <div class="magnifier"></div>
-                            </div>
-                        </div>
-                      </li>
-                      <li class="glide__slide">
-                        <div class="columns is-centered">
-                            <div class="image-container" id="image7">
-                                <img src="./static/images/source4.png" alt="Source image 2">
-                                <div class="magnifier"></div>
-                            </div>
-                            <div class="image-container" id="image8">
-                                <img src="./static/images/relit4.png" alt="Relit image 2">
-                                <div class="magnifier"></div>
-                            </div>
-                        </div>
-                      </li>
-                        <!-- Add more pairs as needed -->
-                    </ul>
-                </div>
-                <!-- Navigation controls -->
-                <div class="glide__arrows" data-glide-el="controls">
-                    <button class="glide__arrow glide__arrow--left" data-glide-dir="<">◀</button>
-                    <button class="glide__arrow glide__arrow--right" data-glide-dir=">">▶</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-          // Initialize the carousel
-          const glide = new Glide('#image-carousel', {
-              type: 'carousel',
-              perView: 1,
-              focusAt: 'center',
-              autoplay: false,
-              hoverpause: true
-          });
-  
-          // Function to reinitialize magnify for the active slide
-          function reinitializeMagnify() {
-              // Find the currently active slide
-              const activeSlide = document.querySelector('.glide__slide--active');
-              if (!activeSlide) {
-                  console.error('No active slide found.');
-                  return;
-              }
-  
-              // Find the image containers in the active slide
-              const containers = activeSlide.querySelectorAll('.image-container');
-              if (containers.length >= 2) {
-                  const container1 = containers[0];
-                  const container2 = containers[1];
-  
-                  // Get their IDs
-                  const container1Id = container1.id;
-                  const container2Id = container2.id;
-  
-                  console.log(`Reinitializing magnify for ${container1Id} and ${container2Id}`);
-  
-                  // Reinitialize magnifyLinked for these containers
-                  magnifyLinked(container1Id, container2Id, 2);
-              } else {
-                  console.error('Active slide does not contain two image containers.');
-              }
-          }
-  
-          // Reinitialize magnify on the first load
-          reinitializeMagnify();
-  
-          // Update magnify whenever the slide changes
-          glide.on('run.after', reinitializeMagnify);
-  
-          // Mount the carousel
-          glide.mount();
-      });
-  </script>
-  <h3 class="title is-5">This project page is under construction and will be updated very frequently. Stay tuned!</h3>
     <!-- <div class="col-md-10 col-md-offset-1"> -->
      
     <!-- </div> -->
@@ -399,6 +279,221 @@
     <!--/ Paper video. -->
   </div>
 </section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Lighting Transfer Results</h2>
+        <!-- <p></p> -->
+        
+        <!-- Dynamic Image Selection and Display Section -->
+        <div>
+          <!-- Step 1: Image Selection -->
+          <!-- Step 1: Image Selection -->
+          <div class="image-selection">
+            <img src="./static/images/TL_1/low_light.png" alt="Guide Image 1" data-id="1">
+            <img src="./static/images/TL_2/860.png" alt="Guide Image 2" data-id="2">
+            <img src="./static/images/TL_3/2066.png" alt="Guide Image 3" data-id="3">
+            <img src="./static/images/TL_4/102798.png" alt="Guide Image 4" data-id="4">
+            <p>Target light</p>
+          </div>
+
+          <!-- Step 2: Dynamic Display with Slider -->
+          <div class="dynamic-display columns is-centered">
+            <div class="column is-half">
+              <div class="image-box" id="box1">
+                <img src="./static/images/placeholder1.jpg" alt="Dynamic Image 1">
+                <p>Original image</p>
+                <div class="magnifier" id="magnifier1"></div>
+              </div>
+            </div>
+            <div class="column is-half">
+              <div class="image-box" id="box2">
+                <img src="./static/images/placeholder2.jpg" alt="Dynamic Image 2">
+                <p>Relit image</p>
+                <div class="magnifier" id="magnifier2"></div>
+              </div>
+            </div>
+          </div>
+          
+
+          <!-- Slider Navigation -->
+          <div class="controls">
+            <button id="prev" class="button is-dark">◀ Previous</button>
+            <button id="next" class="button is-dark">Next ▶</button>
+          </div>
+
+          <style>
+            /* Step 1: Smaller Guide Images */
+            .image-selection img {
+              width: 80px;  /* Adjust the width as needed */
+              height: 80px;
+              object-fit: cover;
+              cursor: pointer;
+              border: 2px solid transparent;
+            }
+
+            /* Highlight selected guide image */
+            .image-selection img.selected {
+              border-color: blue;
+            }
+
+            /* Step 2: Adjust Image Box */
+            .image-box {
+              position: relative;
+              width:100%;  /* Full width of the column */
+              overflow: hidden;
+              border: 2px solid #ccc;
+            }
+
+            .image-box img {
+              width: 100%;
+              height: auto;
+              object-fit: cover;
+            }
+
+            /* Center the controls */
+            .controls {
+              display: flex;
+              justify-content: center;
+              margin-top: 10px;
+              gap: 10px;
+            }
+          </style>
+
+        <!--/ Dynamic Image Selection and Display Section -->
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<style>
+  .magnifier {
+    position: absolute;
+    border: 2px solid #000;
+    border-radius: 50%;
+    cursor: none;
+    pointer-events: none;
+    width: 55px;
+    height: 55px;
+    display: none;
+    background-repeat: no-repeat;
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  }
+</style>
+
+<!-- JavaScript: Add Magnifier Functionality -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const guideImages = document.querySelectorAll('.image-selection img');
+    let selectedGuideImage = null;
+    let currentImageIndex = 0;
+
+    const relatedImages = {
+      1: ["./static/images/TL_1/s1l0.png", "./static/images/TL_1/s1l1.png", "./static/images/TL_1/s1t0.png", "./static/images/TL_1/s1t1.png"],
+      2: ["./static/images/TL_2/s2t0.png", "./static/images/TL_2/s2t1.png", "./static/images/TL_2/s6l0.png", "./static/images/TL_2/s6l1.png"],
+      3: ["./static/images/TL_3/s0l0.png", "./static/images/TL_3/s0l1.png", "./static/images/TL_3/s3l0.png", "./static/images/TL_3/s3l1.png"],
+      4: ["./static/images/TL_4/s5l0.png", "./static/images/TL_4/s5l1.png", "./static/images/TL_4/s0l0.png", "./static/images/TL_4/s0l1.png"]
+    };
+
+    const box1 = document.querySelector('#box1 img');
+    const box2 = document.querySelector('#box2 img');
+    const magnifier1 = document.querySelector('#magnifier1');
+    const magnifier2 = document.querySelector('#magnifier2');
+    const prevButton = document.getElementById('prev');
+    const nextButton = document.getElementById('next');
+
+    guideImages.forEach((image) => {
+      image.addEventListener('click', () => {
+        guideImages.forEach((img) => img.classList.remove('selected'));
+        image.classList.add('selected');
+        selectedGuideImage = image.dataset.id;
+        currentImageIndex = 0;
+        loadDynamicImages();
+      });
+    });
+
+    function loadDynamicImages() {
+      if (selectedGuideImage && relatedImages[selectedGuideImage]) {
+        const images = relatedImages[selectedGuideImage];
+        box1.src = images[currentImageIndex % images.length];
+        box2.src = images[(currentImageIndex + 1) % images.length];
+      }
+    }
+
+    prevButton.addEventListener('click', () => {
+      if (selectedGuideImage && relatedImages[selectedGuideImage]) {
+        const images = relatedImages[selectedGuideImage];
+        currentImageIndex = (currentImageIndex - 2 + images.length) % images.length;
+        loadDynamicImages();
+      }
+    });
+
+    nextButton.addEventListener('click', () => {
+      if (selectedGuideImage && relatedImages[selectedGuideImage]) {
+        const images = relatedImages[selectedGuideImage];
+        currentImageIndex = (currentImageIndex + 2) % images.length;
+        loadDynamicImages();
+      }
+    });
+
+    // Magnify logic for synchronized magnification
+    function magnify(container, magnifier, img, zoom) {
+      container.addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        const x = e.pageX - rect.left - window.scrollX;
+        const y = e.pageY - rect.top - window.scrollY;
+
+        if (x < 0 || y < 0 || x > rect.width || y > rect.height) {
+          magnifier.style.display = 'none';
+          return;
+        }
+
+        magnifier.style.display = 'block';
+        magnifier.style.left = `${x - magnifier.offsetWidth / 2}px`;
+        magnifier.style.top = `${y - magnifier.offsetHeight / 2}px`;
+        magnifier.style.backgroundImage = `url(${img.src})`;
+        magnifier.style.backgroundSize = `${img.width * zoom}px ${img.height * zoom}px`;
+        magnifier.style.backgroundPosition = `-${x * zoom - magnifier.offsetWidth / 2}px -${y * zoom - magnifier.offsetHeight / 2}px`;
+
+        // Synchronize the second magnifier
+        if (magnifier === magnifier1) {
+          magnifier2.style.display = 'block';
+          magnifier2.style.left = magnifier.style.left;
+          magnifier2.style.top = magnifier.style.top;
+          magnifier2.style.backgroundImage = `url(${box2.src})`;
+          magnifier2.style.backgroundSize = `${box2.width * zoom}px ${box2.height * zoom}px`;
+          magnifier2.style.backgroundPosition = magnifier.style.backgroundPosition;
+        } else {
+          magnifier1.style.display = 'block';
+          magnifier1.style.left = magnifier.style.left;
+          magnifier1.style.top = magnifier.style.top;
+          magnifier1.style.backgroundImage = `url(${box1.src})`;
+          magnifier1.style.backgroundSize = `${box1.width * zoom}px ${box1.height * zoom}px`;
+          magnifier1.style.backgroundPosition = magnifier.style.backgroundPosition;
+        }
+      });
+
+      container.addEventListener('mouseleave', () => {
+        magnifier.style.display = 'none';
+        magnifier1.style.display = 'none';
+        magnifier2.style.display = 'none';
+      });
+    }
+
+    magnify(document.querySelector('#box1'), magnifier1, box1, 2);
+    magnify(document.querySelector('#box2'), magnifier2, box2, 2);
+
+    guideImages[0].click();
+  });
+</script>
+
 
 
 
