@@ -415,7 +415,7 @@
       const batch = comparisonBatches[index];
       batch.forEach(item => {
         const column = document.createElement('div');
-        column.className = 'column is-one-sixth';
+        column.className = 'column is-one-fifth';
         column.innerHTML = `
           <div class="image-box">
             <img src="${item.src}" alt="${item.label}">
@@ -457,8 +457,8 @@
     border-radius: 50%;
     cursor: none;
     pointer-events: none;
-    width: 55px;
-    height: 55px;
+    width: 65px;
+    height: 65px;
     display: none;
     background-repeat: no-repeat;
     background-color: rgba(255, 255, 255, 0.6);
