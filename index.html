@@ -446,8 +446,8 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const sliderImages = [
-      ["./static/images/source3.png", "./static/images/relit-3.gif"],
       ["./static/images/source2.png", "./static/images/relit-2.gif"],
+      ["./static/images/source3.png", "./static/images/relit-3.gif"],
       ["./static/images/source1.png", "./static/images/relit-1.gif"],
 
 
@@ -701,143 +701,6 @@
     </div>
   </div>
 </footer>
-<!-- <script>
-  function magnify(containerId, zoom) {
-      const container = document.getElementById(containerId);
-      const img = container.querySelector("img");
-      const magnifier = container.querySelector(".magnifier");
-
-      container.addEventListener("mousemove", function (e) {
-          magnifier.style.display = "block";
-          const { left, top, width, height } = container.getBoundingClientRect();
-          const x = e.pageX - left - window.scrollX;
-          const y = e.pageY - top - window.scrollY;
-
-          // Ensure the magnifier stays within the bounds
-          if (x < 0 || y < 0 || x > width || y > height) {
-              magnifier.style.display = "none";
-              return;
-          }
-
-          // Set magnifier position
-          magnifier.style.left = `${x - magnifier.offsetWidth / 2}px`;
-          magnifier.style.top = `${y - magnifier.offsetHeight / 2}px`;
-
-          // Zoom the image
-          const bgPosX = -(x * zoom - magnifier.offsetWidth / 2);
-          const bgPosY = -(y * zoom - magnifier.offsetHeight / 2);
-          magnifier.style.backgroundImage = `url(${img.src})`;
-          magnifier.style.backgroundSize = `${img.width * zoom}px ${img.height * zoom}px`;
-          magnifier.style.backgroundPosition = `${bgPosX}px ${bgPosY}px`;
-      });
-
-      container.addEventListener("mouseleave", function () {
-          magnifier.style.display = "none";
-      });
-  }
-
-  function magnifyLinked(container1Id, container2Id, zoom) {
-      magnify(container1Id, zoom);
-      magnify(container2Id, zoom);
-  }
-
-  document.addEventListener('DOMContentLoaded', function () {
-      // Initialize the carousel
-      const glide = new Glide('#image-carousel', {
-          type: 'carousel',
-          perView: 1,
-          focusAt: 'center',
-          autoplay: false,
-          hoverpause: true
-      });
-
-      // Function to reinitialize magnify for the active slide
-      function reinitializeMagnify() {
-          const activeSlide = document.querySelector('.glide__slide--active');
-          if (!activeSlide) return;
-
-          // Find the image containers in the active slide
-          const containers = activeSlide.querySelectorAll('.image-container');
-          if (containers.length >= 2) {
-              const container1 = containers[0];
-              const container2 = containers[1];
-
-              magnifyLinked(container1.id, container2.id, 2);
-          }
-      }
-
-      // Reinitialize magnify on the first load and slide change
-      glide.on('mount.after', reinitializeMagnify);
-      glide.on('run.after', reinitializeMagnify);
-
-      // Mount the carousel
-      glide.mount();
-  });
-</script>
-<script>
-  function initializeMagnify(containerId, zoom) {
-      const container = document.getElementById(containerId);
-      const img = container.querySelector("img");
-      const magnifier = container.querySelector(".magnifier");
-
-      container.addEventListener("mousemove", function (e) {
-          magnifier.style.display = "block";
-          const rect = container.getBoundingClientRect();
-          const x = e.pageX - rect.left - window.scrollX;
-          const y = e.pageY - rect.top - window.scrollY;
-
-          // Ensure magnifier stays within bounds
-          if (x < 0 || y < 0 || x > rect.width || y > rect.height) {
-              magnifier.style.display = "none";
-              return;
-          }
-
-          magnifier.style.left = `${x - magnifier.offsetWidth / 2}px`;
-          magnifier.style.top = `${y - magnifier.offsetHeight / 2}px`;
-
-          // Zoom effect
-          const bgX = -(x * zoom - magnifier.offsetWidth / 2);
-          const bgY = -(y * zoom - magnifier.offsetHeight / 2);
-          magnifier.style.backgroundImage = `url(${img.src})`;
-          magnifier.style.backgroundSize = `${img.width * zoom}px ${img.height * zoom}px`;
-          magnifier.style.backgroundPosition = `${bgX}px ${bgY}px`;
-      });
-
-      container.addEventListener("mouseleave", () => {
-          magnifier.style.display = "none";
-      });
-  }
-
-  function setupMagnifyForSlide(slide) {
-      const containers = slide.querySelectorAll('.image-container');
-      containers.forEach(container => {
-          const containerId = container.id;
-          initializeMagnify(containerId, 2); // 2x zoom
-      });
-  }
-
-  document.addEventListener('DOMContentLoaded', function () {
-      const glide = new Glide('#image-carousel', {
-          type: 'carousel',
-          perView: 1,
-          focusAt: 'center',
-          autoplay: false,
-          hoverpause: true
-      });
-
-      glide.on('mount.after', () => {
-          const activeSlide = document.querySelector('.glide__slide--active');
-          setupMagnifyForSlide(activeSlide);
-      });
-
-      glide.on('run.after', () => {
-          const activeSlide = document.querySelector('.glide__slide--active');
-          setupMagnifyForSlide(activeSlide);
-      });
-
-      glide.mount();
-  });
-</script> -->
 
 
 </body>
