@@ -280,8 +280,8 @@
       </video>
       <div class="content has-text-justified">
         <p>Given two images (source image to be relit and target lighting condition), we first extract latent intrinsic image representations for both these images using the pretrained <a href="https://arxiv.org/abs/2405.21074">latent intrinsic model</a>. </p>
-        <p>We then take the lighting (latent extrinsic) vector from the target lighting condition image, and the latent intrinsic feature from the source image to train a simple latent controlNet. </p>
-        <p>The latent ControNet construction needs a little care to match the dimensionality of what the model expects. Our latent extrinsic vectors are only 16 dimensions -- so we map them to higher dimensions using MLP layers to match the size of the text embedding vectors. We use an empty string as our text input to focus purely on image-based lighting transfer. </p>
+        <p>We then take the lighting (latent extrinsic) vector from the target lighting condition image, and the latent intrinsic feature from the source image to train a latent controlNet. </p>
+        <p>The latent ControNet construction needs to match the dimensionality of what the model expects. Our latent extrinsic vectors are only 16 dimensions -- so we map them to higher dimensions using MLP layers to match the size of the text embedding vectors. We use an empty string as our text input to focus purely on image-based lighting transfer. </p>
         <p>We train the model with about 2500 unique images and their corresponding relit images.</p>
       </div>
       </div>
