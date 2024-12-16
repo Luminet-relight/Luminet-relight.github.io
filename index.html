@@ -95,7 +95,7 @@
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>UvA-Bosch Delta Lab</span>
+            <span class="author-block"><sup>1</sup>University of Amsterdam</span>
             <span class="author-block"><sup>2</sup>BCAI-Bosch</span>
             <span class="author-block"><sup>3</sup>Toyota Technological Institute at Chicago</span>
           </div>
@@ -104,7 +104,7 @@
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href="./static/arxiv.pdf"
+                <a href="https://arxiv.org/pdf/2412.00177"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
@@ -387,7 +387,7 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Visual Comparison</h2>
-        <p> We compare <span class="dnerf">LumiNet</span> with <a href="https://github.com/lllyasviel/IC-Light">IC-Light-v2</a>,<a href="https://zheng95z.github.io/publications/rgbx24">RGB-X</a>, and <a href="https://arxiv.org/abs/2405.21074">Latent-Intrinsic</a>. Both RGB-X and IC-Light-v2 require text prompts to achieve relighting, where we use descriptions derived from the target lighting image (including actions like turning lights on/off, lamp placement, and scene type) as text prompts.</p>
+        <p> We compare <span class="dnerf">LumiNet</span> with <a href="https://github.com/lllyasviel/IC-Light">IC-Light-v2</a>, <a href="https://zheng95z.github.io/publications/rgbx24">RGB-X</a>, and <a href="https://arxiv.org/abs/2405.21074">Latent-Intrinsic</a>. Both RGB-X and IC-Light-v2 require text prompts to achieve relighting, where we use descriptions derived from the target lighting image (including actions like turning lights on/off, lamp placement, and scene type) as text prompts.</p>
         <div id="comparison-slider" class="columns is-multiline is-centered">
           <!-- Initial batch of images will be loaded here -->
         </div>
@@ -691,11 +691,22 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{Xing2024LumiNet,
-  author    = {Xing Xiaoyan, Groh Konrad, Karaoglu Sezer, Gevers Theo, Bhattad Anand},
-  title     = {LumiNet: Latent Intrinsics Meets Diffusion Models for Indoor Scene Relighting},
-  year      = {2024},
-}</code></pre>
+    LumiNet:
+    <pre><code>@article{Xing2024luminet,
+      title={LumiNet: Latent Intrinsics Meets Diffusion Models for Indoor Scene Relighting},
+      author={Xing, Xiaoyan and Groh, Konrad and Karagolu, Sezer and Gevers, Theo and Bhattad, Anand},
+      journal={arXiv preprint arXiv:2412.00177},
+      year={2024}
+    }</code>
+</pre>
+  Latent Intrinsics:
+  <pre><code>@inproceedings{Zhang2024Latent,
+    title={Latent Intrinsics Emerge from Training to Relight},
+    author={Zhang, Xiao and Gao, William and Jain, Seemandhar and Maire, Michael and Forsyth, David and Bhattad, Anand},
+    booktitle={NeurIPS},
+    year={2024}
+  }</code>
+  </pre>
   </div>
 </section>
 
@@ -704,7 +715,7 @@
   <div class="container">
     <div class="content has-text-centered">
       <a class="icon-link"
-         href="./static/arxiv.pdf">
+         href="https://arxiv.org/pdf/2412.00177">
         <i class="fas fa-file-pdf"></i>
       </a>
       <a class="icon-link" href="#" class="external-link" disabled>
